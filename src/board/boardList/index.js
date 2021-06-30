@@ -1,6 +1,7 @@
 import "./index.css";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import React from "react";
+const { Search } = Input;
 
 function BoardList() {
   // 임시데이터
@@ -33,9 +34,12 @@ function BoardList() {
     { index: "22", title: "임시 글 입니다", writename: "영희" },
     { index: "23", title: "임시 글 입니다", writename: "영희" },
   ];
+  var searchLishData = boardListData;
+
   var maxViewIndex = 10; // 페이지에서 보여주는 글의 갯수
+  var [searchLishData, setSearchLishData] = React.useState(boardListData);
   var [curViewPage, setViewPage] = React.useState(0); // 현재의 페이지
-  var maxViewPage = parseInt(boardListData.length / maxViewIndex); // 글의 데이터상 최대 페이지수
+  var maxViewPage = parseInt(searchLishData.length / maxViewIndex); // 글의 데이터상 최대 페이지수
 
   // 게시판의 페이지 버튼 설정
   const pagebuttonset = () => {
@@ -58,6 +62,17 @@ function BoardList() {
 
     return result;
   };
+  const onSearch = (value) => {
+    var searchLishData = [];
+    if (value == "") return;
+
+    boardListData.map(function (boardData, index) {
+      if (boardData.title.indexOf(value) != -1) searchLishData.push(boardData);
+    });
+    console.log(searchLishData.length);
+
+    setSearchLishData(searchLishData);
+  };
 
   return (
     <div>
@@ -72,11 +87,12 @@ function BoardList() {
           </tr>
         </thead>
         <tbody>
-          {boardListData.map(function (boardData, index) {
+          {searchLishData.map(function (boardData, index) {
             var curminviewindex = curViewPage * maxViewIndex;
             var curmaxviewindex = curminviewindex + maxViewIndex;
             if (index >= curmaxviewindex) return;
             if (index < curminviewindex) return;
+            console.log(searchLishData.length);
             return (
               <tr key={index}>
                 <td>{boardData.index}</td>
@@ -88,7 +104,17 @@ function BoardList() {
         </tbody>
         <tfoot></tfoot>
       </table>
-      {pagebuttonset()}
+      <div id="table-bottom">
+        {pagebuttonset()}
+        <div id="table-search">
+          <Search
+            placeholder="검색어를 입력해 주세요."
+            allowClear
+            style={{ width: 200 }}
+            onSearch={onSearch}
+          ></Search>
+        </div>
+      </div>
     </div>
   );
 }

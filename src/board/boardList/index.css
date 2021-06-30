@@ -20,5 +20,12 @@
   padding: 0 40px 0 40px;
 }
 .tabel-pagebutton {
-  margin: 18px 3px 0 3px;
+  margin: 0 3px 0 3px;
+}
+#table-bottom {
+  margin-top: 18px;
+}
+#table-search {
+  margin-top: -32px;
+  margin-left: 25vw;
 }
