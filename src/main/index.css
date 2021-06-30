@@ -1,0 +1,8 @@
+#body {
+  height: 80vh;
+  background-color: beige;
+  text-align: center;
+  border-top: black 1px solid;
+  border-bottom: black 1px solid;
+  box-sizing: border-box;
+}
