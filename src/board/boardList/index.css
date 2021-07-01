@@ -1,7 +1,6 @@
-#board-title {
-  margin: 48px;
+.table-topButton {
+  margin-left: 6px;
 }
-
 #table {
   margin-left: auto;
   margin-right: auto;
@@ -9,23 +8,34 @@
 }
 #table > thead {
   background-color: rgb(180, 180, 180);
+  border: black solid 1px;
+}
+#table > tbody {
+  background-color: rgb(245, 245, 245);
+  border: black solid 1px;
 }
 #table-id {
   padding: 0 20px 0 20px;
 }
 #table-title {
-  padding: 0 150px 0 150px;
+  padding: 0 165px 0 150px;
 }
 #table-writename {
   padding: 0 40px 0 40px;
 }
+#tabel-bottom {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 35vw;
+  margin-top: 8px;
+}
+#table-bottom2 {
+  display: flex;
+  margin-top: 8px;
+  margin-left: 35vw;
+  margin-right: 35vw;
+  justify-content: space-between;
+}
 .tabel-pagebutton {
-  margin: 0 3px 0 3px;
-}
-#table-bottom {
-  margin-top: 18px;
-}
-#table-search {
-  margin-top: -32px;
-  margin-left: 25vw;
+  margin: 0 2px 0 2px;
 }

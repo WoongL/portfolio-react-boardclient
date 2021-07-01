@@ -6,3 +6,6 @@
   border-bottom: black 1px solid;
   box-sizing: border-box;
 }
+#board-title {
+  margin: 48px;
+}
