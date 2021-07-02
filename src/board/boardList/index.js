@@ -69,7 +69,12 @@ function BoardList({ history, location }) {
             if (index >= curmaxviewindex) return;
             if (index < curminviewindex) return;
             return (
-              <tr key={index}>
+              <tr
+                key={index}
+                onClick={() => {
+                  history.push(`/${boardData.id}${location.search}`);
+                }}
+              >
                 <td>{boardData.id}</td>
                 <td>{boardData.title}</td>
                 <td>{boardData.writer}</td>
