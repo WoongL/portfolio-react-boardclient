@@ -1,17 +1,27 @@
 import { useParams } from "react-router-dom";
 import "./index.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { API_URI } from "../../config/constants";
 
-function BoardDetail() {
+function BoardDetail({ location }) {
   const { id } = useParams();
 
-  const boarddata = {
-    index: "1",
-    title: "안녕하세요 첫번째 글입니다",
-    content: "임시 테스트클 확인중",
-    writer: "김철수",
-    hit: "0",
-  };
+  const [boarddata, setboarddata] = useState(null);
 
+  const getBoardDetail = () => {
+    axios
+      .get(`${API_URI}/board/${id}`)
+      .then((result) => {
+        setboarddata(result.data.board);
+      })
+      .catch((error) => {});
+  };
+  useEffect(() => {
+    getBoardDetail();
+  }, [location]);
+
+  if (!boarddata) return <div></div>;
   return (
     <div id="boarddetail">
       <h1>{boarddata.title}</h1>
