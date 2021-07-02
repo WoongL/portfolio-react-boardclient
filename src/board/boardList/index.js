@@ -3,64 +3,33 @@ import { Button, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URI } from "../../config/constants";
+import { Link } from "react-router-dom";
 // import CaretLeftOutlined
 
 const { Search } = Input;
 
-function BoardList() {
+function BoardList({ history, location }) {
   // 임시데이터
-
+  //1
   const [boardListData, setBoardListData] = React.useState([]);
 
-  // const boardListData = [
-  //   {
-  //     index: "1",
-  //     title: "안녕하세요",
-  //     writename: "김철수",
-  //   },
-  //   { index: "2", title: "테스트입니다", writename: "홍길동" },
-  //   { index: "3", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "4", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "5", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "6", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "7", title: "임시 글 입", writename: "영희" },
-  //   { index: "8", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "9", title: "임시 글 입다", writename: "영희" },
-  //   { index: "10", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "11", title: "임시 글니다", writename: "영희" },
-  //   { index: "12", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "13", title: "임시 글니다", writename: "영희" },
-  //   { index: "14", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "15", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "16", title: "임시 니다", writename: "영희" },
-  //   { index: "17", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "18", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "19", title: "임시니다", writename: "영희" },
-  //   { index: "20", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "21", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "22", title: "임시 글 입니다", writename: "영희" },
-  //   { index: "23", title: "임시 글 입니다", writename: "영희" },
-  // ];
-  var searchLishData = boardListData;
-
   var maxViewIndex = 10; // 페이지에서 보여주는 글의 갯수
-  var [searchLishData, setSearchLishData] = React.useState(boardListData); //검색결과의 데이터 객체
   var [curViewPage, setViewPage] = React.useState(0); // 현재의 페이지
 
-  var maxViewPage = parseInt(searchLishData.length / maxViewIndex); // 글의 데이터상 최대 페이지수
+  var maxViewPage = parseInt(boardListData.length / maxViewIndex); // 글의 데이터상 최대 페이지수
 
   const getBoard = () => {
     axios
-      .get(`${API_URI}/board`)
+      .get(`${API_URI}/board${location.search}`)
       .then((result) => {
         setBoardListData(result.data.board);
-        setSearchLishData(result.data.board);
+        setViewPage(0);
       })
       .catch((error) => {});
   };
   useEffect(() => {
     getBoard();
-  }, []);
+  }, [location]);
   // 게시판의 페이지 버튼 설정
   const pagebuttonset = () => {
     const result = [];
@@ -82,20 +51,6 @@ function BoardList() {
 
     return result;
   };
-  const onSearch = (value) => {
-    var searchLishData = [];
-
-    boardListData.map(function (boardData, index) {
-      if (boardData.title.indexOf(value) != -1) searchLishData.push(boardData);
-    });
-
-    setSearchLishData(searchLishData);
-    setViewPage(0);
-  };
-  const onRestIndex = () => {
-    onSearch("");
-    setViewPage(0);
-  };
 
   return (
     <div>
@@ -108,7 +63,7 @@ function BoardList() {
           </tr>
         </thead>
         <tbody>
-          {searchLishData.map(function (boardData, index) {
+          {boardListData.map(function (boardData, index) {
             var curminviewindex = curViewPage * maxViewIndex;
             var curmaxviewindex = curminviewindex + maxViewIndex;
             if (index >= curmaxviewindex) return;
@@ -126,9 +81,9 @@ function BoardList() {
       </table>
 
       <div id="tabel-bottom">
-        <Button className="table-topButton" onClick={onRestIndex}>
-          목록
-        </Button>
+        <Link to="">
+          <Button className="table-topButton">목록</Button>
+        </Link>
         <Button className="table-topButton">글쓰기</Button>
       </div>
       <div id="table-bottom2">
@@ -139,7 +94,9 @@ function BoardList() {
             placeholder="검색어를 입력해 주세요."
             allowClear
             style={{ width: 200 }}
-            onSearch={onSearch}
+            onSearch={(value) => {
+              if (value != "") history.push(`?search=${value}`);
+            }}
           />
         </div>
       </div>
