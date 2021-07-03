@@ -28,6 +28,12 @@
 #table-writename {
   padding: 0 40px 0 40px;
 }
+#table-createdat {
+  padding: 0 20px 0 20px;
+}
+#table-hit {
+  padding: 0 10px 0 10px;
+}
 #tabel-bottom {
   display: flex;
   justify-content: flex-end;

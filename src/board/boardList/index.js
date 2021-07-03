@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URI } from "../../config/constants";
 import { Link } from "react-router-dom";
-// import CaretLeftOutlined
+import dayjs from "dayjs";
 
 const { Search } = Input;
 
@@ -60,6 +60,7 @@ function BoardList({ history, location }) {
             <th id="table-id">글 번호</th>
             <th id="table-title">글 제목</th>
             <th id="table-writename">작성자</th>
+            <th id="table-createdat">작성일</th>
             <th id="table-hit">조회수</th>
           </tr>
         </thead>
@@ -74,11 +75,13 @@ function BoardList({ history, location }) {
                 key={index}
                 onClick={() => {
                   history.push(`/${boardData.id}${location.search}`);
+                  getBoard();
                 }}
               >
                 <td>{boardData.id}</td>
                 <td>{boardData.title}</td>
                 <td>{boardData.writer}</td>
+                <td>{dayjs(boardData.createdAt).format("MM-DD")}</td>
                 <td>{boardData.hit}</td>
               </tr>
             );

@@ -12,12 +12,11 @@
   display: flex;
   justify-content: space-between;
 }
-#boarddetail-writer {
+#boarddetail-header > * {
   margin: 8px;
-  margin-left: 2vw;
 }
-#boarddetail-hit {
-  margin: 8px;
+#boarddetail-writer {
+  margin-left: 2vw;
 }
 #boarddetail-body {
   min-height: 40vh;
@@ -30,4 +29,12 @@
   display: flex;
   margin-top: 10vh;
   margin-left: 2vw;
+}
+#boarddetail-button {
+  display: flex;
+  justify-content: flex-end;
+  margin: 12px;
+}
+#boarddetail-button > * {
+  margin-left: 8px;
 }
