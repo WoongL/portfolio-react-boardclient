@@ -1,8 +1,33 @@
 #boarddetail {
-  background-color: thistle;
+  background-color: rgb(250, 250, 250);
   width: 40vw;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  border: 1px black solid;
+}
+#boarddetail-header {
+  background-color: rgb(200, 200, 200);
+  display: flex;
+  justify-content: space-between;
+}
+#boarddetail-writer {
+  margin: 8px;
+  margin-left: 2vw;
+}
+#boarddetail-hit {
+  margin: 8px;
+}
+#boarddetail-body {
+  min-height: 40vh;
+}
+#boarddetail-title {
+  display: flex;
+  margin: 24px 0px 24px 2vw;
+}
+#boarddetail-content {
+  display: flex;
+  margin-top: 10vh;
+  margin-left: 2vw;
 }

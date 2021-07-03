@@ -16,7 +16,7 @@ function BoardList({ history, location }) {
   var maxViewIndex = 10; // 페이지에서 보여주는 글의 갯수
   var [curViewPage, setViewPage] = React.useState(0); // 현재의 페이지
 
-  var maxViewPage = parseInt(boardListData.length / maxViewIndex); // 글의 데이터상 최대 페이지수
+  var maxViewPage = Math.ceil(boardListData.length / maxViewIndex); // 글의 데이터상 최대 페이지수
 
   const getBoard = () => {
     axios
@@ -33,7 +33,7 @@ function BoardList({ history, location }) {
   // 게시판의 페이지 버튼 설정
   const pagebuttonset = () => {
     const result = [];
-    for (var i = 0; i <= maxViewPage; i++) {
+    for (var i = 0; i < maxViewPage; i++) {
       const key = i;
       result.push(
         <Button
@@ -60,6 +60,7 @@ function BoardList({ history, location }) {
             <th id="table-id">글 번호</th>
             <th id="table-title">글 제목</th>
             <th id="table-writename">작성자</th>
+            <th id="table-hit">조회수</th>
           </tr>
         </thead>
         <tbody>
@@ -78,6 +79,7 @@ function BoardList({ history, location }) {
                 <td>{boardData.id}</td>
                 <td>{boardData.title}</td>
                 <td>{boardData.writer}</td>
+                <td>{boardData.hit}</td>
               </tr>
             );
           })}
@@ -89,7 +91,9 @@ function BoardList({ history, location }) {
         <Link to="">
           <Button className="table-topButton">목록</Button>
         </Link>
-        <Button className="table-topButton">글쓰기</Button>
+        <Link to="/write">
+          <Button className="table-topButton">글쓰기</Button>
+        </Link>
       </div>
       <div id="table-bottom2">
         <div>{pagebuttonset()}</div>

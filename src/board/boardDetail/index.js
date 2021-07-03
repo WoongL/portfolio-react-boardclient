@@ -24,27 +24,14 @@ function BoardDetail({ location }) {
   if (!boarddata) return <div></div>;
   return (
     <div id="boarddetail">
-      <h1>{boarddata.title}</h1>
-      <span>작성자 : {boarddata.writer}</span>
-      <br />
-      <p>{boarddata.content}</p>
-
-      <span>조회수 : {boarddata.hit}</span>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-
-      <span>id:{id}</span>
+      <div id="boarddetail-header">
+        <span id="boarddetail-writer">{boarddata.writer}</span>
+        <span id="boarddetail-hit">조회수 : {boarddata.hit}</span>
+      </div>
+      <div id="boarddetail-body">
+        <h1 id="boarddetail-title">{boarddata.title}</h1>
+        <p id="boarddetail-content">{boarddata.content}</p>
+      </div>
     </div>
   );
 }
