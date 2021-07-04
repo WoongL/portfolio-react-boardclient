@@ -2,12 +2,17 @@ import "./index.css";
 import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { API_URI } from "../../config/constants";
+import { useState, useEffect } from "react";
 
-function BoardWrite({ history }) {
+function BoardUpdate(props) {
   var submitflag = false;
+  var id = props.id;
+  var [boarddata, setBoarddata] = useState(null);
+  const history = props.history;
   const onSubmit = (value) => {
     const { writer, pw, title, content } = value;
     if (!writer) {
+      message.error(writer);
       message.error("작성자를 입력해주세요.");
       return;
     } else if (!pw) {
@@ -20,26 +25,44 @@ function BoardWrite({ history }) {
       message.error("내용을 입력해주세요.");
       return;
     } else if (submitflag) {
-      message.warning("글 작성중입니다.");
+      message.warning("글 수정중입니다.");
       return;
     }
     submitflag = true;
     axios
-      .post(`${API_URI}/board`, { writer, pw, title, content })
+      .put(`${API_URI}/board/${id}`, { writer, pw, title, content })
       .then((result) => {
-        message.success("작성완료");
+        message.success("글 수정완료");
         history.push(`/${result.data.id}`);
       })
       .catch((error) => {
         console.log(error);
-        message.error("작성실패");
+        message.error("수정실패");
         submitflag = false;
       });
   };
+
+  const getBoardDetail = () => {
+    axios
+      .get(`${API_URI}/board/${id}`)
+      .then((result) => {
+        setBoarddata(result.data.board);
+      })
+      .catch((error) => {});
+  };
+  useEffect(() => {
+    getBoardDetail();
+  }, []);
+  if (!boarddata) return <div></div>;
+  var defaultValue = {
+    writer: boarddata.writer,
+    title: boarddata.title,
+    content: boarddata.content,
+  };
   return (
-    <div id="boardwrite">
-      <Form onFinish={onSubmit}>
-        <div id="boardwrite-header">
+    <div id="boardupdate">
+      <Form onFinish={onSubmit} initialValues={defaultValue}>
+        <div id="boardupdate-header">
           <Form.Item label="작성자 :" name="writer">
             <Input />
           </Form.Item>
@@ -47,16 +70,16 @@ function BoardWrite({ history }) {
             <Input.Password />
           </Form.Item>
         </div>
-        <div id="boardwrite-body">
+        <div id="boardupdate-body">
           <Form.Item label="제목 :" name="title">
             <Input />
           </Form.Item>
           <Form.Item label="본문 :" name="content">
-            <Input.TextArea id="boardwrite-content" />
+            <Input.TextArea id="boardupdate-content" />
           </Form.Item>
         </div>
-        <div id="boardwrite-button">
-          <Button id="boardwrite-submit" size="large" htmlType="submit">
+        <div id="boardupdate-button">
+          <Button id="boardupdate-submit" size="large" htmlType="submit">
             작성완료
           </Button>
         </div>
@@ -65,4 +88,4 @@ function BoardWrite({ history }) {
   );
 }
 
-export default BoardWrite;
+export default BoardUpdate;

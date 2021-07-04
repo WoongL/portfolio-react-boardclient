@@ -13,3 +13,7 @@
 #boardpwcheck > * {
   margin: 24px;
 }
+.boardpwcheck-button {
+  margin-left: 6px;
+  margin-right: 6px;
+}

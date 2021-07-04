@@ -1,0 +1,35 @@
+#boardupdate {
+  background-color: rgb(250, 250, 250);
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  border: 1px black solid;
+}
+#boardupdate-header {
+  background-color: rgb(200, 200, 200);
+  display: flex;
+  justify-content: space-between;
+}
+#boardupdate-header > * {
+  margin: 8px 18px 8px 18px;
+}
+
+#boardupdate-body {
+  min-height: 10vh;
+}
+#boardupdate-body > * {
+  margin: 12px;
+}
+#boardupdate-content {
+  min-height: 200px;
+}
+#boardupdate-button {
+  display: flex;
+  justify-content: flex-end;
+}
+#boardupdate-submit {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}

@@ -12,7 +12,6 @@ function BoardDetail({ location, history }) {
   const { id } = useParams();
 
   const [boarddata, setboarddata] = useState(null);
-  var isDeleteflag = false;
 
   const getBoardDetail = () => {
     axios
@@ -25,16 +24,6 @@ function BoardDetail({ location, history }) {
   useEffect(() => {
     getBoardDetail();
   }, [location]);
-
-  const deleteBoard = () => {
-    if (isDeleteflag) return;
-    isDeleteflag = true;
-    axios
-      .delete(`${API_URI}/board/${id}`)
-      .then((result) => {})
-      .catch((error) => {});
-    history.push("/");
-  };
 
   if (!boarddata) return <div></div>;
 
@@ -72,7 +61,6 @@ function BoardDetail({ location, history }) {
             history.push(
               `/${id}/delete${getQueryString(["search"], location, false)}`
             );
-            // deleteBoard();
           }}
         >
           삭제
