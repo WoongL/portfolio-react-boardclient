@@ -1,5 +1,5 @@
 import "./index.css";
-import { Form, Input, Button, message, Result } from "antd";
+import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { API_URI } from "../../config/constants";
 import { useHistory } from "react-router-dom";

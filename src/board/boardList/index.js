@@ -5,12 +5,14 @@ import axios from "axios";
 import { API_URI } from "../../config/constants";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
+import getQueryString from "../../main/getQueryString";
 
 const { Search } = Input;
 
 function BoardList({ history, location }) {
   // 임시데이터
   //1
+
   const [boardListData, setBoardListData] = React.useState([]);
 
   var maxViewIndex = 10; // 페이지에서 보여주는 글의 갯수
@@ -20,7 +22,7 @@ function BoardList({ history, location }) {
 
   const getBoard = () => {
     axios
-      .get(`${API_URI}/board${location.search}`)
+      .get(`${API_URI}/board${getQueryString(["search"], location)}`)
       .then((result) => {
         setBoardListData(result.data.board);
         setViewPage(0);
@@ -74,7 +76,9 @@ function BoardList({ history, location }) {
               <tr
                 key={index}
                 onClick={() => {
-                  history.push(`/${boardData.id}${location.search}`);
+                  history.push(
+                    `/${boardData.id}${getQueryString(["search"], location)}`
+                  );
                   getBoard();
                 }}
               >
@@ -82,7 +86,7 @@ function BoardList({ history, location }) {
                 <td>{boardData.title}</td>
                 <td>{boardData.writer}</td>
                 <td>{dayjs(boardData.createdAt).format("MM-DD")}</td>
-                <td>{boardData.hit}</td>
+                <td id={`table-id${boardData.id}-hit`}>{boardData.hit}</td>
               </tr>
             );
           })}

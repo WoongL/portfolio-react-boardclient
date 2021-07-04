@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { API_URI } from "../../config/constants";
 import dayjs from "dayjs";
 import { Button, Input, Form } from "antd";
+import getQueryString from "../../main/getQueryString";
+import $ from "jquery";
 
 function BoardDetail({ location, history }) {
   const { id } = useParams();
@@ -35,6 +37,10 @@ function BoardDetail({ location, history }) {
   };
 
   if (!boarddata) return <div></div>;
+
+  //조회수증가가 제일 마지막 통신이기 때문에 게시글 보는 화면에서 목록창의 조회수의 동기화를 위한 Jquery
+  $(`#table-id${boarddata.id}-hit`).html(boarddata.hit);
+
   return (
     <div id="boarddetail">
       <div id="boarddetail-header">
@@ -52,7 +58,9 @@ function BoardDetail({ location, history }) {
         <Button
           size="large"
           onClick={() => {
-            console.log("1");
+            history.push(
+              `/${id}/update${getQueryString(["search"], location, false)}`
+            );
           }}
         >
           수정
@@ -61,7 +69,10 @@ function BoardDetail({ location, history }) {
           size="large"
           onClick={() => {
             // 로그인 기능 추가시 인증후 삭제
-            deleteBoard();
+            history.push(
+              `/${id}/delete${getQueryString(["search"], location, false)}`
+            );
+            // deleteBoard();
           }}
         >
           삭제
