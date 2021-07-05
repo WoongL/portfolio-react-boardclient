@@ -1,0 +1,50 @@
+.replyupdate-box {
+  background-color: white;
+  min-height: 120px;
+  width: 40vw;
+  margin-top: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 12px;
+  border: 1px solid black;
+}
+
+.replyupdate-header {
+  background-color: rgb(220, 220, 220);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 16px 0px 16px;
+}
+
+.replyupdate-body {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 24px 8px 24px;
+  padding: 0;
+}
+.replyupdate-content {
+  width: 30vw;
+}
+.replyupdate-button {
+  margin: 4px;
+}
+
+#replypwcheck {
+  background-color: white;
+  border: 1px solid black;
+  width: 30vw;
+  min-height: 15vh;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 14px;
+}
+
+#replypwcheck > * {
+  margin: 24px;
+}
+.replypwcheck-button {
+  margin-left: 6px;
+  margin-right: 6px;
+}

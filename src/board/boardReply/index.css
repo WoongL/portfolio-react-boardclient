@@ -1,0 +1,33 @@
+#boardreplylist {
+  margin-bottom: 24px;
+  min-height: 150px;
+}
+.boardreplylist-box {
+  background-color: white;
+  min-height: 120px;
+  width: 40vw;
+  margin-top: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+}
+
+.boardreplylist-header {
+  background-color: rgb(220, 220, 220);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 16px 0px 16px;
+}
+
+.boardreplylist-body {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 24px 8px 24px;
+  padding: 0;
+}
+.boardreplylist-content {
+  width: 30vw;
+}
+.boardreplylist-button {
+  margin: 4px;
+}

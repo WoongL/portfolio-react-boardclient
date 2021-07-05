@@ -4,6 +4,7 @@ import { Route, Router, Switch } from "react-router-dom";
 import BoardDetail from "../board/boardDetail";
 import BoardWrite from "../board/boardWrite";
 import boardPasswordCheck from "../board/boardPasswordCheck";
+import ReplyPasswordCheck from "../board/replyPasswordCheck";
 
 function MainPage() {
   return (
@@ -12,9 +13,18 @@ function MainPage() {
 
       <Switch>
         <Route exact={true} path="/write" component={BoardWrite} />
-        <Route exact={true} path="/pwcheck" component={boardPasswordCheck} />
         <Route exact={true} path="/:id/delete" component={boardPasswordCheck} />
         <Route exact={true} path="/:id/update" component={boardPasswordCheck} />
+        <Route
+          exact={true}
+          path="/:id/:replyid/update"
+          component={ReplyPasswordCheck}
+        />
+        <Route
+          exact={true}
+          path="/:id/:replyid/delete"
+          component={ReplyPasswordCheck}
+        />
         <Route exact={true} path="/:id" component={BoardDetail} />
       </Switch>
       <Route path="/" component={BoardList} />

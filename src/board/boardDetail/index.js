@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { Button, Input, Form } from "antd";
 import getQueryString from "../../main/getQueryString";
 import $ from "jquery";
+import BoardReply from "../boardReply";
 
 function BoardDetail({ location, history }) {
   const { id } = useParams();
@@ -31,41 +32,44 @@ function BoardDetail({ location, history }) {
   $(`#table-id${boarddata.id}-hit`).html(boarddata.hit);
 
   return (
-    <div id="boarddetail">
-      <div id="boarddetail-header">
-        <span id="boarddetail-writer">{boarddata.writer}</span>
-        <span id="boarddetail-createdat">
-          {dayjs(boarddata.createdAt).format("YYYY-MM-DD HH:mm")}
-        </span>
-        <span id="boarddetail-hit">조회수 : {boarddata.hit}</span>
+    <div>
+      <div id="boarddetail">
+        <div id="boarddetail-header">
+          <span id="boarddetail-writer">{boarddata.writer}</span>
+          <span id="boarddetail-createdat">
+            {dayjs(boarddata.createdAt).format("YYYY-MM-DD HH:mm")}
+          </span>
+          <span id="boarddetail-hit">조회수 : {boarddata.hit}</span>
+        </div>
+        <div id="boarddetail-body">
+          <h1 id="boarddetail-title">{boarddata.title}</h1>
+          <p id="boarddetail-content">{boarddata.content}</p>
+        </div>
+        <div id="boarddetail-button">
+          <Button
+            size="large"
+            onClick={() => {
+              history.push(
+                `/${id}/update${getQueryString(["search"], location, false)}`
+              );
+            }}
+          >
+            수정
+          </Button>
+          <Button
+            size="large"
+            onClick={() => {
+              // 로그인 기능 추가시 인증후 삭제
+              history.push(
+                `/${id}/delete${getQueryString(["search"], location, false)}`
+              );
+            }}
+          >
+            삭제
+          </Button>
+        </div>
       </div>
-      <div id="boarddetail-body">
-        <h1 id="boarddetail-title">{boarddata.title}</h1>
-        <p id="boarddetail-content">{boarddata.content}</p>
-      </div>
-      <div id="boarddetail-button">
-        <Button
-          size="large"
-          onClick={() => {
-            history.push(
-              `/${id}/update${getQueryString(["search"], location, false)}`
-            );
-          }}
-        >
-          수정
-        </Button>
-        <Button
-          size="large"
-          onClick={() => {
-            // 로그인 기능 추가시 인증후 삭제
-            history.push(
-              `/${id}/delete${getQueryString(["search"], location, false)}`
-            );
-          }}
-        >
-          삭제
-        </Button>
-      </div>
+      <BoardReply id={boarddata.id} history={history} location={location} />
     </div>
   );
 }
