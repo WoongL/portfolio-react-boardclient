@@ -15,7 +15,6 @@ function ReplyPasswordCheck({ location, history }) {
 
   const [isupdateflag, setUpdateFlag] = useState(false);
   const [beforereplydata, setbeforedata] = useState({});
-  var submitflag = false;
 
   const onSubmit = (value) => {
     const pw = value.pw;
@@ -27,7 +26,7 @@ function ReplyPasswordCheck({ location, history }) {
       message.warning("비밀번호를 확인중 입니다.");
       return;
     }
-    // submitflag = true;
+    isSubmitflag = true;
 
     axios
       .get(`${API_URI}/replypwcheck/${replyid}?pw=${pw}`)
@@ -57,6 +56,7 @@ function ReplyPasswordCheck({ location, history }) {
               })
               .catch((error) => {
                 console.log(error);
+                isSubmitflag = false;
               });
           }
         } else {
@@ -65,6 +65,7 @@ function ReplyPasswordCheck({ location, history }) {
       })
       .catch((error) => {
         console.log(error);
+        isSubmitflag = false;
       });
   };
 
@@ -80,10 +81,11 @@ function ReplyPasswordCheck({ location, history }) {
     } else if (!content) {
       message.error("내용을 입력해주세요.");
       return;
-    } else if (submitflag) {
+    } else if (isSubmitflag) {
       message.warning("댓글 수정중입니다.");
       return;
     }
+    isSubmitflag = true;
     axios
       .put(`${API_URI}/reply/${replyid}`, { writer, pw, content })
       .then((result) => {
@@ -99,9 +101,8 @@ function ReplyPasswordCheck({ location, history }) {
       .catch((error) => {
         console.log(error);
         message.error("수정실패");
-        submitflag = false;
+        isSubmitflag = false;
       });
-    console.log(value);
   };
 
   var defaultValue = {

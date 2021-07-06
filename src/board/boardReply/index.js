@@ -13,7 +13,7 @@ function BoardReply({ location, history }) {
 
   const [replylist, setReplyList] = useState([]);
 
-  var submitflag = false;
+  var isSubmitflag = false;
 
   const [form] = Form.useForm();
 
@@ -41,11 +41,11 @@ function BoardReply({ location, history }) {
     } else if (!content) {
       message.error("내용을 입력해주세요.");
       return;
-    } else if (submitflag) {
+    } else if (isSubmitflag) {
       message.warning("댓글 작성중입니다.");
       return;
     }
-    submitflag = true;
+    isSubmitflag = true;
     axios
       .post(`${API_URI}/reply/${id}`, { writer, pw, content })
       .then((result) => {
@@ -56,7 +56,7 @@ function BoardReply({ location, history }) {
       .catch((error) => {
         console.log(error);
         message.error("댓글 작성실패");
-        submitflag = false;
+        isSubmitflag = false;
       });
   };
   $("html").scrollTop(0);

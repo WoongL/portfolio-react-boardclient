@@ -24,7 +24,7 @@ function BoardList({ history, location }) {
 
   var maxViewIndex = curquerypagescale != "" ? curquerypagescale : 10; // 페이지에서 보여주는 글의 갯수
   var [curViewPage, setViewPage] = React.useState(
-    curquerypage != "" ? curquerypage - 1 : 0
+    curquerypage != "" ? curquerypage : 1
   ); // 현재의 페이지
   var [boardsearchcount, setBoardSearchCount] = React.useState(0);
 
@@ -41,26 +41,54 @@ function BoardList({ history, location }) {
       .then((result) => {
         setBoardSearchCount(result.data.count.count);
         setBoardListData(result.data.board);
+
+        setViewPage(curquerypage != "" ? curquerypage : 1);
       })
       .catch((error) => {});
   };
-  useEffect(() => {
-    getBoard();
-  }, [location]);
+
   // 게시판의 페이지 버튼 설정
   const pagebuttonset = () => {
     const result = [];
-    var startindex = curViewPage - 4 < 0 ? 0 : curquerypage - 4;
-    var endindex =
-      curViewPage + 5 > maxViewPage ? maxViewPage : curViewPage + 5;
 
-    for (var i = startindex; i < endindex; i++) {
+    var pagescroll = parseInt(curViewPage / 6);
+
+    var startindex = pagescroll * 6 - 1;
+    startindex = startindex < 1 ? 1 : startindex;
+
+    if (curViewPage > 1) {
+      result.push(
+        <Button
+          className="tabel-pagebutton"
+          size="small"
+          key="back"
+          onClick={() => {
+            if (curViewPage <= 0) return;
+            history.push(
+              `?page=${
+                curViewPage - 1
+              }&pagescale=${maxViewIndex}${getQueryString(
+                ["search"],
+                location,
+                false
+              )}`
+            );
+
+            setViewPage(curViewPage - 1);
+          }}
+        >
+          이전
+        </Button>
+      );
+    }
+
+    for (var i = startindex; i < startindex + 8 && i <= maxViewPage; i++) {
       const key = i;
       result.push(
         <Button
           onClick={() => {
             history.push(
-              `?page=${key + 1}&pagescale=${maxViewIndex}${getQueryString(
+              `?page=${key}&pagescale=${maxViewIndex}${getQueryString(
                 ["search"],
                 location,
                 false
@@ -69,16 +97,46 @@ function BoardList({ history, location }) {
             setViewPage(key);
           }}
           className="tabel-pagebutton"
-          key={key}
-          type={curViewPage === key ? "primary" : "default"}
+          key={`tabel-pagebutton${key}`}
+          size="small"
+          type={curViewPage == key ? "primary" : "default"}
         >
-          {key + 1}
+          {key}
+        </Button>
+      );
+    }
+
+    if (curViewPage < maxViewPage) {
+      result.push(
+        <Button
+          className="tabel-pagebutton"
+          size="small"
+          key="next"
+          onClick={() => {
+            if (curViewPage > maxViewPage) return;
+            history.push(
+              `?page=${
+                parseInt(curViewPage) + 1
+              }&pagescale=${maxViewIndex}${getQueryString(
+                ["search"],
+                location,
+                false
+              )}`
+            );
+            setViewPage(curViewPage + 1);
+          }}
+        >
+          다음
         </Button>
       );
     }
 
     return result;
   };
+
+  useEffect(() => {
+    getBoard();
+  }, [location]);
   $("html").scrollTop(0);
   return (
     <div>

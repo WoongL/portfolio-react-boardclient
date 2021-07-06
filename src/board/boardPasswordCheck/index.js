@@ -23,7 +23,7 @@ function BoardPasswordCheck({ location, history }) {
       message.warning("비밀번호를 확인중 입니다.");
       return;
     }
-    // submitflag = true;
+    isSubmitflag = true;
 
     axios
       .get(`${API_URI}/board/${id}?pw=${pw}`)
@@ -41,6 +41,7 @@ function BoardPasswordCheck({ location, history }) {
       })
       .catch((error) => {
         console.log(error);
+        isSubmitflag = false;
       });
   };
 

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import getQueryString from "../../main/getQueryString";
 
 function BoardUpdate(props) {
-  var submitflag = false;
+  var isSubmitflag = false;
   var id = props.id;
   var [boarddata, setBoarddata] = useState(null);
   const history = props.history;
@@ -26,11 +26,11 @@ function BoardUpdate(props) {
     } else if (!content) {
       message.error("내용을 입력해주세요.");
       return;
-    } else if (submitflag) {
+    } else if (isSubmitflag) {
       message.warning("글 수정중입니다.");
       return;
     }
-    submitflag = true;
+    isSubmitflag = true;
     axios
       .put(`${API_URI}/board/${id}`, { writer, pw, title, content })
       .then((result) => {
@@ -46,7 +46,7 @@ function BoardUpdate(props) {
       .catch((error) => {
         console.log(error);
         message.error("수정실패");
-        submitflag = false;
+        isSubmitflag = false;
       });
   };
 

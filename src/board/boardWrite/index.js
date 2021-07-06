@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_URI } from "../../config/constants";
 
 function BoardWrite({ history }) {
-  var submitflag = false;
+  var isSubmitflag = false;
   const onSubmit = (value) => {
     const { writer, pw, title, content } = value;
     if (!writer) {
@@ -19,11 +19,11 @@ function BoardWrite({ history }) {
     } else if (!content) {
       message.error("내용을 입력해주세요.");
       return;
-    } else if (submitflag) {
+    } else if (isSubmitflag) {
       message.warning("글 작성중입니다.");
       return;
     }
-    submitflag = true;
+    isSubmitflag = true;
     axios
       .post(`${API_URI}/board`, { writer, pw, title, content })
       .then((result) => {
@@ -33,7 +33,7 @@ function BoardWrite({ history }) {
       .catch((error) => {
         console.log(error);
         message.error("작성실패");
-        submitflag = false;
+        isSubmitflag = false;
       });
   };
   return (
