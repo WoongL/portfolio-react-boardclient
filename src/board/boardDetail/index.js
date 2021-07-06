@@ -50,7 +50,11 @@ function BoardDetail({ location, history }) {
             size="large"
             onClick={() => {
               history.push(
-                `/${id}/update${getQueryString(["search"], location, false)}`
+                `/${id}/update${getQueryString(
+                  ["search", "page", "pagescale"],
+                  location,
+                  true
+                )}`
               );
             }}
           >
@@ -61,7 +65,11 @@ function BoardDetail({ location, history }) {
             onClick={() => {
               // 로그인 기능 추가시 인증후 삭제
               history.push(
-                `/${id}/delete${getQueryString(["search"], location, false)}`
+                `/${id}/delete${getQueryString(
+                  ["search", "page", "pagescale"],
+                  location,
+                  true
+                )}`
               );
             }}
           >

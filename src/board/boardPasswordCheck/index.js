@@ -57,7 +57,7 @@ function BoardPasswordCheck({ location, history }) {
   };
 
   if (isUpdateflag) {
-    return <BoardUpdate id={id} history={history} />;
+    return <BoardUpdate id={id} history={history} location={location} />;
   }
 
   return (

@@ -14,4 +14,6 @@ const getQueryString = (keywords, location, isPrefix = true) => {
   return result;
 };
 
+//현재 주소에서 해당 쿼리 키워드값만 추출하는 함수
+
 export default getQueryString;

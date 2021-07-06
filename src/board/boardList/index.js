@@ -6,26 +6,41 @@ import { API_URI } from "../../config/constants";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import getQueryString from "../../main/getQueryString";
+import $ from "jquery";
 
 const { Search } = Input;
 
 function BoardList({ history, location }) {
   // 임시데이터
-  //1
+  //
 
   const [boardListData, setBoardListData] = React.useState([]);
 
-  var maxViewIndex = 10; // 페이지에서 보여주는 글의 갯수
-  var [curViewPage, setViewPage] = React.useState(0); // 현재의 페이지
+  var curquerypagescale = getQueryString(["pagescale"], location).replace(
+    "?pagescale=",
+    ""
+  );
+  var curquerypage = getQueryString(["page"], location).replace("?page=", "");
 
-  var maxViewPage = Math.ceil(boardListData.length / maxViewIndex); // 글의 데이터상 최대 페이지수
+  var maxViewIndex = curquerypagescale != "" ? curquerypagescale : 10; // 페이지에서 보여주는 글의 갯수
+  var [curViewPage, setViewPage] = React.useState(
+    curquerypage != "" ? curquerypage - 1 : 0
+  ); // 현재의 페이지
+  var [boardsearchcount, setBoardSearchCount] = React.useState(0);
+
+  var maxViewPage = Math.ceil(boardsearchcount / maxViewIndex); // 글의 데이터상 최대 페이지수
 
   const getBoard = () => {
     axios
-      .get(`${API_URI}/board${getQueryString(["search"], location)}`)
+      .get(
+        `${API_URI}/board${getQueryString(
+          ["search", "page", "pagescale"],
+          location
+        )}`
+      )
       .then((result) => {
+        setBoardSearchCount(result.data.count.count);
         setBoardListData(result.data.board);
-        setViewPage(0);
       })
       .catch((error) => {});
   };
@@ -35,11 +50,22 @@ function BoardList({ history, location }) {
   // 게시판의 페이지 버튼 설정
   const pagebuttonset = () => {
     const result = [];
-    for (var i = 0; i < maxViewPage; i++) {
+    var startindex = curViewPage - 4 < 0 ? 0 : curquerypage - 4;
+    var endindex =
+      curViewPage + 5 > maxViewPage ? maxViewPage : curViewPage + 5;
+
+    for (var i = startindex; i < endindex; i++) {
       const key = i;
       result.push(
         <Button
           onClick={() => {
+            history.push(
+              `?page=${key + 1}&pagescale=${maxViewIndex}${getQueryString(
+                ["search"],
+                location,
+                false
+              )}`
+            );
             setViewPage(key);
           }}
           className="tabel-pagebutton"
@@ -53,7 +79,7 @@ function BoardList({ history, location }) {
 
     return result;
   };
-
+  $("html").scrollTop(0);
   return (
     <div>
       <table id="table">
@@ -68,17 +94,17 @@ function BoardList({ history, location }) {
         </thead>
         <tbody>
           {boardListData.map(function (boardData, index) {
-            var curminviewindex = curViewPage * maxViewIndex;
-            var curmaxviewindex = curminviewindex + maxViewIndex;
-            if (index >= curmaxviewindex) return;
-            if (index < curminviewindex) return;
             return (
               <tr
                 key={index}
                 onClick={() => {
                   history.push(
-                    `/${boardData.id}${getQueryString(["search"], location)}`
+                    `/${boardData.id}${getQueryString(
+                      ["search", "page", "pagescale"],
+                      location
+                    )}`
                   );
+
                   getBoard();
                 }}
               >
@@ -96,14 +122,28 @@ function BoardList({ history, location }) {
 
       <div id="tabel-bottom">
         <Link to="">
-          <Button className="table-topButton">목록</Button>
+          <Button
+            className="table-topButton"
+            onClick={() => {
+              setViewPage(0);
+            }}
+          >
+            목록
+          </Button>
         </Link>
         <Link to="/write">
-          <Button className="table-topButton">글쓰기</Button>
+          <Button
+            className="table-topButton"
+            onClick={() => {
+              setViewPage(0);
+            }}
+          >
+            글쓰기
+          </Button>
         </Link>
       </div>
       <div id="table-bottom2">
-        <div>{pagebuttonset()}</div>
+        <div id="table-pagebuttonset">{pagebuttonset()}</div>
         <div id="table-search">
           <Search
             id="table-searchbar"
@@ -111,7 +151,10 @@ function BoardList({ history, location }) {
             allowClear
             style={{ width: 200 }}
             onSearch={(value) => {
-              if (value != "") history.push(`?search=${value}`);
+              if (value != "") {
+                setViewPage(0);
+                history.push(`/?search=${value}`);
+              }
             }}
           />
         </div>

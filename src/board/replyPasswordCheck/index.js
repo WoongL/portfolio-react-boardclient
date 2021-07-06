@@ -3,6 +3,7 @@ import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { API_URI } from "../../config/constants";
 import { useState } from "react";
+import getQueryString from "../../main/getQueryString";
 
 function ReplyPasswordCheck({ location, history }) {
   const isUpdate = location.pathname.includes("update");
@@ -46,7 +47,13 @@ function ReplyPasswordCheck({ location, history }) {
               .delete(`${API_URI}/reply/${replyid}`)
               .then((result) => {
                 message.info("삭제 성공");
-                history.push(`/${id}`);
+                history.push(
+                  `/${id}${getQueryString(
+                    ["search", "page", "pagescale"],
+                    location,
+                    true
+                  )}`
+                );
               })
               .catch((error) => {
                 console.log(error);
@@ -81,7 +88,13 @@ function ReplyPasswordCheck({ location, history }) {
       .put(`${API_URI}/reply/${replyid}`, { writer, pw, content })
       .then((result) => {
         message.success("댓글 수정완료");
-        history.push(`/${id}`);
+        history.push(
+          `/${id}${getQueryString(
+            ["search", "page", "pagescale"],
+            location,
+            true
+          )}`
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -152,7 +165,13 @@ function ReplyPasswordCheck({ location, history }) {
               className="replypwcheck-button"
               id="replypwcheck-cancel"
               onClick={() => {
-                history.push(`/${id}`);
+                history.push(
+                  `/${id}${getQueryString(
+                    ["search", "page", "pagescale"],
+                    location,
+                    true
+                  )}`
+                );
               }}
             >
               취소

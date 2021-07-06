@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URI } from "../../config/constants";
 import dayjs from "dayjs";
+import $ from "jquery";
+import getQueryString from "../../main/getQueryString";
 
 function BoardReply({ location, history }) {
   const { id } = useParams();
@@ -57,7 +59,7 @@ function BoardReply({ location, history }) {
         submitflag = false;
       });
   };
-
+  $("html").scrollTop(0);
   return (
     <div id="boardreplylist">
       {replylist.map(function (reply, index) {
@@ -76,7 +78,13 @@ function BoardReply({ location, history }) {
                 <Button
                   className="boardreplylist-button"
                   onClick={() => {
-                    history.push(`/${id}/${reply.id}/update`);
+                    history.push(
+                      `/${id}/${reply.id}/update${getQueryString(
+                        ["search", "page", "pagescale"],
+                        location,
+                        true
+                      )}`
+                    );
                   }}
                 >
                   수정
@@ -84,7 +92,13 @@ function BoardReply({ location, history }) {
                 <Button
                   className="boardreplylist-button"
                   onClick={() => {
-                    history.push(`/${id}/${reply.id}/delete`);
+                    history.push(
+                      `/${id}/${reply.id}/delete${getQueryString(
+                        ["search", "page", "pagescale"],
+                        location,
+                        true
+                      )}`
+                    );
                   }}
                 >
                   삭제

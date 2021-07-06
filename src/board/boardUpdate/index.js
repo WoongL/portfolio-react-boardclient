@@ -3,12 +3,14 @@ import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { API_URI } from "../../config/constants";
 import { useState, useEffect } from "react";
+import getQueryString from "../../main/getQueryString";
 
 function BoardUpdate(props) {
   var submitflag = false;
   var id = props.id;
   var [boarddata, setBoarddata] = useState(null);
   const history = props.history;
+  const location = props.location;
   const onSubmit = (value) => {
     const { writer, pw, title, content } = value;
     if (!writer) {
@@ -33,7 +35,13 @@ function BoardUpdate(props) {
       .put(`${API_URI}/board/${id}`, { writer, pw, title, content })
       .then((result) => {
         message.success("글 수정완료");
-        history.push(`/${result.data.id}`);
+        history.push(
+          `/${result.data.id}${getQueryString(
+            ["search", "page", "pagescale"],
+            location,
+            true
+          )}`
+        );
       })
       .catch((error) => {
         console.log(error);

@@ -44,10 +44,15 @@
   display: flex;
   margin-top: 8px;
   margin-bottom: 24px;
-  margin-left: 35vw;
-  margin-right: 35vw;
+  width: 100vw;
   justify-content: space-between;
 }
+#table-search {
+  margin-right: 31vw;
+}
+#table-pagebuttonset {
+  margin-left: 31vw;
+}
 .tabel-pagebutton {
-  margin: 0 2px 0 2px;
+  margin: 0 1px 0 1px;
 }
