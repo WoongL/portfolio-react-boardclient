@@ -33,3 +33,8 @@
   margin-right: 8px;
   margin-bottom: 8px;
 }
+@media screen and (max-width: 1200px) {
+  #boardwrite {
+    width: 80vw;
+  }
+}

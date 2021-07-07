@@ -3,7 +3,16 @@
   padding: 0;
 }
 #footer {
-  height: 10vh;
+  min-height: 10vh;
   background-color: coral;
   text-align: center;
+}
+#gitlink {
+  margin-top: 10px;
+  height: 50px;
+  object-fit: cover;
+}
+#email {
+  font-size: large;
+  font-weight: bold;
 }

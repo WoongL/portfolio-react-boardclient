@@ -9,7 +9,11 @@ function App() {
       <HeaderMenuPage />
       <MainPage />
       <div id="footer">
-        <h1>바닥영역</h1>
+        <a href="https://github.com/WoongL">
+          <img id="gitlink" src="/github-icon.png" />
+        </a>
+
+        <p id="email">E-mail : woongl7690@gmail.com</p>
       </div>
     </div>
   );

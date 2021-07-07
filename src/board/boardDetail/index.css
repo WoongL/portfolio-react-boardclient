@@ -38,3 +38,8 @@
 #boarddetail-button > * {
   margin-left: 8px;
 }
+@media screen and (max-width: 1200px) {
+  #boarddetail {
+    width: 80vw;
+  }
+}

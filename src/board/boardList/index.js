@@ -143,11 +143,11 @@ function BoardList({ history, location }) {
       <table id="table">
         <thead>
           <tr>
-            <th id="table-id">글 번호</th>
+            <th id="table-id">번호</th>
             <th id="table-title">글 제목</th>
             <th id="table-writename">작성자</th>
             <th id="table-createdat">작성일</th>
-            <th id="table-hit">조회수</th>
+            <th id="table-hit">조회</th>
           </tr>
         </thead>
         <tbody>

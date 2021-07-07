@@ -31,3 +31,8 @@
 .boardreplylist-button {
   margin: 4px;
 }
+@media screen and (max-width: 1200px) {
+  .boardreplylist-box {
+    width: 80vw;
+  }
+}
