@@ -1,5 +1,5 @@
 # 배포
-> https://woongl.github.io/portfolio-react-boardclient/
+> https://portfolio-react-boardclient.vercel.app/
 
 ## 주의점
 > 서버는 헤로쿠 서버를 사용하고 있기 때문에 일정주기로 서버가 잠들어 처음은 약간 로딩이 느릴수 있습니다 
