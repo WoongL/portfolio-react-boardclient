@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/portfolio-react-boardclient/static/css/main.1979c43f.chunk.css",
+    "main.js": "/portfolio-react-boardclient/static/js/main.b629b189.chunk.js",
+    "main.js.map": "/portfolio-react-boardclient/static/js/main.b629b189.chunk.js.map",
+    "runtime-main.js": "/portfolio-react-boardclient/static/js/runtime-main.d38ee35d.js",
+    "runtime-main.js.map": "/portfolio-react-boardclient/static/js/runtime-main.d38ee35d.js.map",
+    "static/css/2.ba8a8a05.chunk.css": "/portfolio-react-boardclient/static/css/2.ba8a8a05.chunk.css",
+    "static/js/2.00f529a0.chunk.js": "/portfolio-react-boardclient/static/js/2.00f529a0.chunk.js",
+    "static/js/2.00f529a0.chunk.js.map": "/portfolio-react-boardclient/static/js/2.00f529a0.chunk.js.map",
+    "static/js/3.43b07bf9.chunk.js": "/portfolio-react-boardclient/static/js/3.43b07bf9.chunk.js",
+    "static/js/3.43b07bf9.chunk.js.map": "/portfolio-react-boardclient/static/js/3.43b07bf9.chunk.js.map",
+    "index.html": "/portfolio-react-boardclient/index.html",
+    "static/css/2.ba8a8a05.chunk.css.map": "/portfolio-react-boardclient/static/css/2.ba8a8a05.chunk.css.map",
+    "static/css/main.1979c43f.chunk.css.map": "/portfolio-react-boardclient/static/css/main.1979c43f.chunk.css.map",
+    "static/js/2.00f529a0.chunk.js.LICENSE.txt": "/portfolio-react-boardclient/static/js/2.00f529a0.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d38ee35d.js",
+    "static/css/2.ba8a8a05.chunk.css",
+    "static/js/2.00f529a0.chunk.js",
+    "static/css/main.1979c43f.chunk.css",
+    "static/js/main.b629b189.chunk.js"
+  ]
+}
